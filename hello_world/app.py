@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import url_for
+from flask import render_template
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -21,7 +22,8 @@ def hello_world():
 
 @app.route("/index")
 def hello_index():
-    return "<p><b>Hi, this is the index route!</b></p><p>Bottom text</p>"
+    # This is 100% done wrong, don't worry about it right now, though.
+    return render_template('header.html') + "<p><b>Hi, this is the index route!</b></p><p>Bottom text</p>"
 
 @app.route("/u/<name>")
 def hello_unsan(name):
@@ -54,6 +56,7 @@ def demo_url_for_method():
             text += f"<p>{url_for(url)}</p>\n"
         text += "\n<p>Using vars:</p>\n\n"
         text += '\n' + url_for('show_profile', username='Brock Oli', next='/')
+        text += f"\n<p>{url_for('static', filename='style.css')}</p>"
 
     return text
 
