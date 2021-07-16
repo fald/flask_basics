@@ -44,4 +44,13 @@ def init_db_command():
     """ Clear existing data and create new tables. """
     init_db()
     click.echo("Initialized the database.")
-    
+
+
+# Register with the application; close and init db commands should
+# be registered if the app is to use them.
+# App factory => instance not available while writing functions, so here:
+def init_app(app):
+    # Call this when cleaning up
+    app.teardown_appcontext(close_db)
+    # New command that can be called with flask cmd
+    app.cli.add_command(init_db_command)
