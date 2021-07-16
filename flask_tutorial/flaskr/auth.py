@@ -56,7 +56,36 @@ def login():
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
+        # Shouldn't give away if its password or user...should we?
+        # Either way, easy to split this up if needed.
         if (user is None) or not (check_password_has(user['password'], password)):
             error = 'Incorrect username or password.'
 
+        # session is a dict stored across requests - a cookie.
+        # This can be checked for user-specific information being available.
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
 
+        flash(error)
+
+    return render_template('auth/login.html')
+
+
+# This registers a fn that runs before view, no matter what url is requested.
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get['user_id']
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = get_db().execute(
+            'SELECT * FROM user WHERE id = ?', (user_id,)
+        ).fetchone()
+
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
