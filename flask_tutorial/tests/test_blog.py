@@ -32,6 +32,7 @@ def test_author_required(app, client, auth):
         db.execute(
             'UPDATE post SET author_id = 2 WHERE id = 1'
         )
+        db.commit()
     
     auth.login()
     assert client.post('/1/update').status_code == 403
