@@ -67,6 +67,7 @@ def get_post(id, check_author=True):
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
+    # Can probably refactor such that update/create use same view...
     post = get_post(id)
 
     if request.method == 'POST':
