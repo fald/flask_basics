@@ -58,7 +58,7 @@ def login():
 
         # Shouldn't give away if its password or user...should we?
         # Either way, easy to split this up if needed.
-        if (user is None) or not (check_password_has(user['password'], password)):
+        if (user is None) or not (check_password_hash(user['password'], password)):
             error = 'Incorrect username or password.'
 
         # session is a dict stored across requests - a cookie.
