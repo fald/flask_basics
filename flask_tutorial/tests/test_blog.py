@@ -30,7 +30,7 @@ def test_author_required(app, client, auth):
     with app.app_context():
         db = get_db()
         db.execute(
-            'UPDATE post SET author_id = 2 WHERE is = 1'
+            'UPDATE post SET author_id = 2 WHERE id = 1'
         )
     
     auth.login()
@@ -50,7 +50,7 @@ def test_exists_required(client, auth, path):
 
 def test_create(client, auth, app):
     auth.login()
-    assert cleint.get('/create').status_code == 200
+    assert client.get('/create').status_code == 200
     client.post('/create', data={'title': 'created', 'body': ' '})
 
     with app.app_context():
@@ -62,7 +62,7 @@ def test_create(client, auth, app):
 def test_update(client, auth, app):
     auth.login()
     assert client.get('/1/update').status_code == 200
-    client.post('/1/update', data={'title': 'updates', 'body': ' '})
+    client.post('/1/update', data={'title': 'updated', 'body': ' '})
 
     with app.app_context():
         db = get_db()
