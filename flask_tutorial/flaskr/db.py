@@ -4,11 +4,15 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+
 # 'g' is a special object unique for each request.
 # It's used to store data accessible by multiple functions during
 # the request.
 # Connection is stored + reused instead of being recreated if get_db
 # is called again in same request.
+# 'current_app' is similar, pointing to the Flask object handling the
+# request; using an app factory means there is no object in the rest
+# of the code.
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(
