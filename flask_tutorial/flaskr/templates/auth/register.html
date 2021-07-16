@@ -7,9 +7,10 @@
 {% block content %}
     <form method='POST'>
         <label for='username'>Username</label>
+        <!-- Validation done here, but important to do it server-side, too! -->
         <input name='username' id='username' required>
         <label for='password'>Password</label>
-        <input name='password' id='password' required>
+        <input type='password' name='password' id='password' required>
         <input type='submit' value='Register'>
     </form>
 {% endblock %}
