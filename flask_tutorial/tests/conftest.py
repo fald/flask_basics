@@ -23,7 +23,7 @@ def app():
     # Now we're using the temp stuff, init a db there.
     with app.app_context():
         init_db()
-        get_db.executescript(_data_sql)
+        get_db().executescript(_data_sql)
 
     yield app
 
