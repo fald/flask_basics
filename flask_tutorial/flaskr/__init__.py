@@ -40,4 +40,11 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
+    from . import blog
+    app.register_blueprint(blog.bp)
+    # Unlike auth, there is no url_prefix, so instead its at the root;
+    # main feature, so makes sense here.
+    # endpoint of index is blog.index, so url_for('index') == url_for('blog.index') in our case.
+    app.add_url_rule('/', endpoint='index')
+
     return app
