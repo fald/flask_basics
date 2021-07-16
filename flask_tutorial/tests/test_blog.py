@@ -71,12 +71,13 @@ def test_update(client, auth, app):
 
 
 @pytest.mark.parametrize('path', (
-    '/create/',
+    '/create',
     '/1/update',
 ))
 def test_create_update_validate(client, auth, path):
     auth.login()
     response = client.post(path, data={'title': '', 'body': ''})
+    print(response.data)
     assert b'Title is required' in response.data
 
 

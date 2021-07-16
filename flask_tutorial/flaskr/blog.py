@@ -28,7 +28,7 @@ def create():
         error = None
 
         if not title:
-            error = 'A title is required.'
+            error = 'Title is required.'
         elif not body:
             error = 'You need some content.'
         
