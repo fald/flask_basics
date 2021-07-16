@@ -71,6 +71,7 @@ def update(id):
     post = get_post(id)
 
     if request.method == 'POST':
+        print(request.form)
         title = request.form['title']
         body = request.form['body']
         error = None
